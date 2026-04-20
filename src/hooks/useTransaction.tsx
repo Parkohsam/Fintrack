@@ -1,27 +1,28 @@
 import { useState, useEffect, useMemo } from "react";
 import type { Transaction, TransactionFormData, FilterState } from "../types";
 
-const STORAGE_KEY = "fintrack_transaction";
-
-function loadFormStorage(): Transaction[] {
+// ✅ Accepts the key as a parameter
+function loadFromStorage(key: string): Transaction[] {
     try {
-        const raw = localStorage.getItem(STORAGE_KEY);
+        const raw = localStorage.getItem(key);
         return raw ? (JSON.parse(raw) as Transaction[]) : [];
     } catch {
         return [];
     }
 }
 
-export function useTransactions(filter: FilterState) {
-    const [transactions, setTransactions] =
-        useState<Transaction[]>(loadFormStorage);
+// ✅ Accepts user so each user gets their own key
+export function useTransactions(filter: FilterState, user: string) {
+    const STORAGE_KEY = `fintrack_transactions_${user}`;
 
-    // Save to localStorage every time transactions change
+    const [transactions, setTransactions] = useState<Transaction[]>(
+        () => loadFromStorage(STORAGE_KEY) // ✅ runs once on mount
+    );
+
     useEffect(() => {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(transactions));
-    }, [transactions]);
+    }, [transactions, STORAGE_KEY]);
 
-    // Add a new transaction
     function addTransaction(data: TransactionFormData): void {
         const newTx: Transaction = {
             id: crypto.randomUUID(),
@@ -35,13 +36,12 @@ export function useTransactions(filter: FilterState) {
         setTransactions((prev) => prev.filter((tx) => tx.id !== id));
     }
 
-    // ── Calculated values ──────────────────────────────────────────────────────
     const totalIncome = useMemo(
         () =>
             transactions
                 .filter((tx) => tx.type === "income")
                 .reduce((sum, tx) => sum + tx.amount, 0),
-        [transactions],
+        [transactions]
     );
 
     const totalExpenses = useMemo(
@@ -49,7 +49,7 @@ export function useTransactions(filter: FilterState) {
             transactions
                 .filter((tx) => tx.type === "expense")
                 .reduce((sum, tx) => sum + tx.amount, 0),
-        [transactions],
+        [transactions]
     );
 
     const totalBalance = totalIncome - totalExpenses;

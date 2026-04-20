@@ -3,6 +3,7 @@ import type { FilterState } from "../types";
 import { useTransactions } from "../hooks/useTransaction";
 import { formatCurrency } from "../utilities/formatters";
 import TransactionForm from "../Pages/TransactionForm";
+import SpendingChart from '../Pages/SpendingChart';
 
 const defaultFilter: FilterState = { type: "all", category: "all" };
 
@@ -23,7 +24,7 @@ export default function Dashboard({ user, onLogout }: DashboardProps) {
     totalBalance,
     totalIncome,
     totalExpenses,
-  } = useTransactions(filter);
+  } = useTransactions(filter, user);
 
   const searchedTransactions = filteredTransactions.filter((tx) => {
     const q = search.toLowerCase();
@@ -94,6 +95,8 @@ export default function Dashboard({ user, onLogout }: DashboardProps) {
             + Add transaction
           </button>
         </div>
+
+        <SpendingChart transactions={filteredTransactions} />
 
         {/* Transaction List */}
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
