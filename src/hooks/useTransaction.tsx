@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from "react";
 import type { Transaction, TransactionFormData, FilterState } from "../types";
 
-// ✅ Accepts the key as a parameter
+//  Accepts the key as a parameter
 function loadFromStorage(key: string): Transaction[] {
     try {
         const raw = localStorage.getItem(key);

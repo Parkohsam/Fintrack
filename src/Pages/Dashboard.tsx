@@ -96,7 +96,7 @@ export default function Dashboard({ user, onLogout }: DashboardProps) {
           </button>
         </div>
 
-        <SpendingChart transactions={filteredTransactions} />
+        {/* <SpendingChart transactions={filteredTransactions} /> */}
 
         {/* Transaction List */}
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
@@ -121,10 +121,7 @@ export default function Dashboard({ user, onLogout }: DashboardProps) {
                 >
                   <span className="text-xl w-8 text-center">{tx.category}</span>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-gray-800 truncate">
-                      {tx.note || tx.category}
-                    </p>
-                    <p className="text-xs text-gray-400">
+                    <p className="text-xs text-gray-400 mt-10">
                       {tx.category} · {tx.date}
                     </p>
                   </div>
@@ -145,6 +142,7 @@ export default function Dashboard({ user, onLogout }: DashboardProps) {
             </ul>
           )}
         </div>
+        <SpendingChart transactions={filteredTransactions} />
       </main>
 
       {/* Modal */}
@@ -158,7 +156,7 @@ export default function Dashboard({ user, onLogout }: DashboardProps) {
   );
 }
 
-// ── Summary Card ─────────────────────────────────────────────────────────────
+// ── Summary Card─
 
 interface SummaryCardProps {
   label: string;
