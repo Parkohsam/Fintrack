@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Wallet} from "lucide-react";
 
 
 
@@ -23,7 +24,7 @@ export default function LoginPage ({onLogin} : LoginPageProps) {
             <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-8 w-full max-w-sm flex flex-col gap-6">
                 <div className="text-center">
                     <div className="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-3">
-                        💰
+                        <Wallet />
                     </div>
                     <h1 className="text-xl font-semibold text-gray-800"> Parkohsam FinTrack</h1>
                     <p className="text-xs text-gray-400 mt-1">Your personal finance tracker</p>

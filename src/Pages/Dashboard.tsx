@@ -3,7 +3,8 @@ import type { FilterState } from "../types";
 import { useTransactions } from "../hooks/useTransaction";
 import { formatCurrency } from "../utilities/formatters";
 import TransactionForm from "../Pages/TransactionForm";
-import SpendingChart from '../Pages/SpendingChart';
+import SpendingChart from "../Pages/SpendingChart";
+import { Wallet, Search , LineChart} from "lucide-react";
 
 const defaultFilter: FilterState = { type: "all", category: "all" };
 
@@ -40,15 +41,18 @@ export default function Dashboard({ user, onLogout }: DashboardProps) {
       {/* Header */}
       <header className="bg-white border-b border-gray-100 px-6 py-4 flex items-center justify-between">
         <div>
-          <h1 className="text-lg font-semibold text-gray-800">💰 FinTrack</h1>
-          <p className="text-xs text-gray-400">
+          <h1 className="text-lg font-semibold text-gray-800 flex items-center gap-1">
+            {" "}
+            <Wallet className="inline-block text-red-400" /> FinTrack
+          </h1>
+          <p className="text-xs text-black-800 font-semibold">
             Welcome back,{" "}
-            <span className="text-blue-500 font-medium">{user}</span>! 👋
+            <span className="text-blue-500 font-medium">{user}</span>
           </p>
         </div>
         <button
           onClick={onLogout}
-          className="text-xs text-gray-400 hover:text-blue-800 transition-colors btn rounded-xl bg-blue-500 font-bold px-4 py-2.5 "
+          className="text-xs text-white-400 hover:text-blue-800 transition-colors btn rounded-xl bg-blue-500 font-bold px-4 py-2.5 "
         >
           Log out
         </button>
@@ -81,13 +85,17 @@ export default function Dashboard({ user, onLogout }: DashboardProps) {
 
         {/* Toolbar */}
         <div className="flex items-center gap-3">
-          <input
-            type="text"
-            value={search}
-            placeholder="🔍  Search transactions…"
-            onChange={(e) => setSearch(e.target.value)}
-            className="flex-1 bg-white border border-gray-100 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-200 shadow-sm"
-          />
+          <div className="relative flex-1">
+            <input
+              type="text"
+              value={search}
+              placeholder=" Search transactions…"
+              onChange={(e) => setSearch(e.target.value)}
+              className="w-full bg-white border border-gray-100 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-200 shadow-sm"
+            />
+            <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-black-400 pointer-events-none" />
+          </div>
+
           <button
             onClick={() => setShowForm(true)}
             className="bg-blue-600 text-white rounded-xl px-4 py-2.5 text-sm font-medium hover:bg-blue-700 transition-colors shadow-sm whitespace-nowrap"
