@@ -4,7 +4,7 @@ import { useTransactions } from "../hooks/useTransaction";
 import { formatCurrency } from "../utilities/formatters";
 import TransactionForm from "../Pages/TransactionForm";
 import SpendingChart from "../Pages/SpendingChart";
-import { Wallet, Search , LineChart} from "lucide-react";
+import { Wallet, Search } from "lucide-react";
 
 const defaultFilter: FilterState = { type: "all", category: "all" };
 
